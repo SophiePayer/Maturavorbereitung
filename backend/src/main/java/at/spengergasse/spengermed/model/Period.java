@@ -1,5 +1,6 @@
 package at.spengergasse.spengermed.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import javax.persistence.Column;
@@ -18,9 +19,11 @@ import java.time.LocalDateTime;
 
 public class Period extends Element{
 
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
   @Column(name = "pe_start")
   private LocalDateTime start;
 
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
   @Column(name = "pe_end")
   private LocalDateTime end;
 }

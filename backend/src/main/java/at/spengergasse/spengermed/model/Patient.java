@@ -1,6 +1,7 @@
 package at.spengergasse.spengermed.model;
 
 import at.spengergasse.spengermed.validators.PatientValid;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import javax.persistence.*;
@@ -46,6 +47,7 @@ public class Patient extends DomainResource {
   private GenderCode gender;
 
   @PastOrPresent
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
   @Column(name = "p_birthdate")
   private LocalDate birthDate;
 

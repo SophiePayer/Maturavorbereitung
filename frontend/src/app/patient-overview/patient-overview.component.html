@@ -1,0 +1,75 @@
+<h3>Patient Overview</h3>
+<table *ngFor="let patientItem of patientData; index as i" style="border: 1px solid black; width: 100%;">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Active</th>
+            <th>Gender</th>
+            <th>Birthdate</th>
+            <th>DeceasedBoolean</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{ patientItem.id }}</td>
+            <td>{{ patientItem.active }}</td>
+            <td>{{ patientItem.gender }}</td>
+            <td>{{ patientItem.birthdate }}</td>
+            <td>{{ patientItem.deceasedBoolean }}</td>
+        </tr>
+        <tr>
+            <h4>Name</h4>
+            <table *ngFor="let name of patientItem.name">
+                <tr>
+                    <td>{{name.text}}</td>
+                    <td>{{name.use}}</td>
+                    <td>{{name.prefix}}</td>
+                    <td>{{name.given}}</td>
+                    <td>{{name.family}}</td>
+                    <td>{{name.suffix}}</td>
+                    <td>{{name.start}}</td>
+                </tr>
+            </table>
+        </tr>
+        <tr>
+            <h4>Address</h4>
+            <table *ngFor="let address of patientItem.address">
+                <tr>
+                    <td>{{address.use}}</td>
+                    <td>{{address.type}}</td>
+                    <td>{{address.city}}</td>
+                    <td>{{address.line}}</td>
+                    <td>{{address.district}}</td>
+                    <td>{{address.postalCode}}</td>
+                    <td>{{address.country}}</td>
+                </tr>
+            </table>
+        </tr>
+        <tr>
+            <h4>Identifier</h4>
+            <table *ngFor="let identifier of patientItem.identifier">
+                <tr>
+                    <td>{{identifier.use}}</td>
+                    <td>{{identifier.value}}</td>
+                    <td>{{identifier.system}}</td>
+                    <td>{{identifier.display}}</td>
+                    <td>{{identifier.reference}}</td>
+                </tr>
+            </table>
+        </tr>
+        <tr>
+            <h4>Telecom</h4>
+            <table *ngFor="let telecom of patientItem.telecom">
+                <tr>
+                    <td>{{telecom.use}}</td>
+                    <td>{{telecom.system}}</td>
+                    <td>{{telecom.value}}</td>
+                    <td>{{telecom.rank}}</td>
+                </tr>
+            </table>
+        </tr>
+        <button (click)="removePatient(patientItem.id)">Delete Patient</button>
+        <button routerLink="/patient/{{patientItem.id}}">Update Patient</button>
+    </tbody>
+</table>
+<button routerLink='/patient/new'>Add Patient</button>

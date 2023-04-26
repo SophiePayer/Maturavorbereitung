@@ -1,0 +1,217 @@
+<form [formGroup]="patientForm">
+  <h3>Patient</h3>
+  <div>
+    <label>Active:</label>
+    <select formControlName="active">
+      <option value="true">True</option>
+      <option value="false">False</option>
+    </select>
+  </div>
+
+  <div>
+      <label>Gender:</label>
+      <select formControlName="gender">
+        <option value="male">male</option>
+        <option value="female">female</option>
+        <option value="other">other</option>
+        <option value="unknown">unknown</option>
+      </select>
+    </div>
+    <div>
+      <label for="birthdate">Birthdate:</label>
+      <input type="date" id="birthdate" formControlName="birthdate">
+    </div>
+    <div>
+      <label>Deceased:</label>
+      <select formControlName="deceasedBoolean">
+        <option value="true">True</option>
+        <option value="false">False</option>
+      </select>
+    </div>
+
+    Identfifiers: <button (click)="addIdentifier()">+</button>
+      <div *ngFor="let identifier of getIdentifierControls(); index as i" [formGroup]="identifier" >
+        <div>
+          <label >Use:</label>
+          <select formControlName="use">
+            <option value="usual">Usual</option>
+            <option value="official">Official</option>
+            <option value="temp">Temp</option>
+            <option value="secondary">Secondary</option>
+            <option value="old">Old</option>
+          </select>
+        </div>
+        <div>
+          <label >System:</label>
+          <textarea formControlName="system" ></textarea>
+        </div>
+        <div>
+          <label >Value:</label>
+          <textarea formControlName="value" ></textarea>
+        </div>
+        <div>
+          <label >Display:</label>
+          <textarea formControlName="display" ></textarea>
+        </div>
+        <ng-container formGroupName="period">
+          <div>
+            <label>Start:</label>
+            <input type="datetime-local" placeholder="start" formControlName="start">
+          </div>
+          <div>
+            <label>End:</label>
+            <input type="datetime-local" placeholder="end" formControlName="end">
+          </div>
+        </ng-container>
+        <button (click)="removeIdentifier(i)">-</button>
+        <hr>
+      </div>
+
+      Names: <button (click)="addName()">+</button>
+      <div *ngFor="let name of getNameControls(); index as n" [formGroup]="name" >
+        <div>
+          <label >Text:</label>
+          <input type="text" formControlName="text" />
+        </div>
+        <div>
+          <label >Use:</label>
+          <select formControlName="use">
+            <option value="usual">Usual</option>
+            <option value="official">Official</option>
+            <option value="temp">Temp</option>
+            <option value="nickname">Nickname</option>
+            <option value="anonymous">Anonymous</option>
+            <option value="old">Old</option>
+            <option value="maiden">Maiden</option>
+          </select>
+        </div>
+        <div>
+          <label >Family:</label>
+          <textarea formControlName="family" ></textarea>
+        </div>
+        <ng-container formGroupName="period">
+          <div>
+            <label>Start:</label>
+            <input type="datetime-local" placeholder="start" formControlName="start">
+          </div>
+          <div>
+            <label>End:</label>
+            <input type="datetime-local" placeholder="end" formControlName="end">
+          </div>
+        </ng-container>
+
+        <button (click)="removeName(n)">-</button>
+        <hr>
+      </div>
+
+      Addresses: <button (click)="addAddress()">+</button>
+      <div *ngFor="let address of getAddressControls(); index as a" [formGroup]="address" >
+        <div>
+          <label >Text:</label>
+          <input type="text" formControlName="text" />
+        </div>
+        <div>
+          <label >Use:</label>
+          <select formControlName="use">
+            <option value="home">Home</option>
+            <option value="work">Work</option>
+            <option value="temp">Temp</option>
+            <option value="billing">Billing</option>
+            <option value="old">Old</option>
+          </select>
+        </div>
+        <div>
+          <label >Type:</label>
+          <select formControlName="type">
+            <option value="postal">Postal</option>
+            <option value="physical">Physical</option>
+            <option value="both">Both</option>
+          </select>
+        </div>
+        <div>
+          <label >City:</label>
+          <textarea formControlName="city" ></textarea>
+        </div>
+        <div>
+          <label >District:</label>
+          <input type="number" formControlName="district">
+        </div>
+        <div>
+          <label >State:</label>
+          <textarea formControlName="state" ></textarea>
+        </div>
+        <div>
+          <label >Country:</label>
+          <textarea formControlName="country" ></textarea>
+        </div>
+        <ng-container *ngFor="let line of address.line; let lineIndex=index" [formGroup]="line">
+          <h3>Addressline</h3>
+          <div>
+            <input type="text" placeholder="Addressline" value="{{line.value}}">
+          </div>
+        </ng-container>
+        <ng-container formGroupName="period">
+          <div>
+            <label>Start:</label>
+            <input type="datetime-local" placeholder="start" formControlName="start">
+          </div>
+          <div>
+            <label>End:</label>
+            <input type="datetime-local" placeholder="end" formControlName="end">
+          </div>
+        </ng-container>
+        <button (click)="removeAddress(a)">-</button>
+        <hr>
+      </div>
+
+      Telecoms: <button (click)="addTelecom()">+</button>
+      <div *ngFor="let telecom of getTelecomControls(); index as i" [formGroup]="telecom" >
+        <div>
+          <label >Use:</label>
+          <select formControlName="use">
+            <option value="home">Home</option>
+            <option value="work">Work</option>
+            <option value="temp">Temp</option>
+            <option value="billing">Mobile</option>
+            <option value="old">Old</option>
+          </select>
+        </div>
+        <div>
+          <label >System:</label>
+          <select formControlName="system">
+            <option value="phone">Phone</option>
+            <option value="fax">fax</option>
+            <option value="email">Email</option>
+            <option value="pager">Pager</option>
+            <option value="url">Old</option>
+            <option value="sms">SMS</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div>
+          <label >Value:</label>
+          <textarea formControlName="value" ></textarea>
+        </div>
+        <div>
+          <label >Rank:</label>
+          <input type="number" formControlName="rank" >
+        </div>
+        <ng-container formGroupName="period">
+          <div>
+            <label>Start:</label>
+            <input type="datetime-local" placeholder="start" formControlName="start">
+          </div>
+          <div>
+            <label>End:</label>
+            <input type="datetime-local" placeholder="end" formControlName="end">
+          </div>
+        </ng-container>
+        <button (click)="removeTelecom(i)">-</button>
+        <hr>
+      </div>
+
+
+    <button (click)="onSubmit()">Submit</button>
+</form>
+
+<pre>{{patientForm.value|json}}</pre>
