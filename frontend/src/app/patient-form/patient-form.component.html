@@ -99,6 +99,24 @@
             <input type="datetime-local" placeholder="end" formControlName="end">
           </div>
         </ng-container>
+        <ng-container *ngFor="let given of getGiven(name); let givenIndex=index" [formGroup]="given">
+          <h3>Given Names</h3>
+          <div>
+            <input placeholder="Given Name" value="{{given.value}}">
+          </div>
+        </ng-container>
+        <ng-container *ngFor="let prefix of getPrefix(name); let prefixIndex=index" [formGroup]="prefix">
+          <h3>Prefix</h3>
+          <div>
+            <input placeholder="Prefix" value="{{prefix.value}}">
+          </div>
+        </ng-container>
+      <ng-container *ngFor="let suffix of getSuffix(name); let suffixIndex=index" [formGroup]="suffix">
+        <h3>Suffix</h3>
+        <div>
+          <input placeholder="Suffix" value="{{suffix.value}}">
+        </div>
+      </ng-container>
 
         <button (click)="removeName(n)">-</button>
         <hr>
