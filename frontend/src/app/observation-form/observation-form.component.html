@@ -1,0 +1,69 @@
+<form [formGroup]="observationForm">
+    <h3>Observation</h3>
+      Identfifiers: <button (click)="addIdentifier()">+</button>
+        <div *ngFor="let identifier of getIdentifierControls(); index as i" [formGroup]="identifier" >
+          <div>
+            <label >Use:</label>
+            <select formControlName="use">
+              <option value="usual">Usual</option>
+              <option value="official">Official</option>
+              <option value="temp">Temp</option>
+              <option value="secondary">Secondary</option>
+              <option value="old">Old</option>
+            </select>
+          </div>
+          <div>
+            <label >System:</label>
+            <textarea formControlName="system" ></textarea>
+          </div>
+          <div>
+            <label >Value:</label>
+            <textarea formControlName="value" ></textarea>
+          </div>
+          <div>
+            <label >Display:</label>
+            <textarea formControlName="display" ></textarea>
+          </div>
+          <ng-container formGroupName="period">
+            <div>
+              <label>Start:</label>
+              <input type="datetime-local" placeholder="start" formControlName="start">
+            </div>
+            <div>
+              <label>End:</label>
+              <input type="datetime-local" placeholder="end" formControlName="end">
+            </div>
+          </ng-container>
+          <button (click)="removeIdentifier(i)">-</button>
+          <hr>
+        </div>
+  
+        BasedOn: <button (click)="addBasedOn()">+</button>
+        <div *ngFor="let BasedOn of getBasedOnControls(); index as a" [formGroup]="BasedOn" >
+          <div>
+            <label >Reference:</label>
+            <input type="reference" formControlName="reference" />
+          </div>
+          <div>
+            <label >type:</label>
+            <input type="type" formControlName="type" />
+          </div>
+          <div>
+            <label >display:</label>
+            <input type="display" formControlName="display" />
+          </div>
+        </div>
+  
+        TriggeredBy: <button (click)="addTriggeredBy()">+</button>
+        <div *ngFor="let TriggeredBy of getTriggeredByControls(); index as a" [formGroup]="TriggeredBy" >
+          <div>
+            <label >Observation:</label>
+            <input type="Observation" formControlName="Observation" />
+          </div>
+        </div>
+  
+      <button (click)="onSubmit()">Submit</button>
+  </form>
+  
+  <pre>{{observationForm.value|json}}</pre>
+  
