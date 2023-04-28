@@ -8,12 +8,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { PatientFormComponent } from './patient-form/patient-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { EvidencereportFormComponent } from './evidencereport-form/evidencereport-form.component';
+import { EvidencereportOverviewComponent } from './evidencereport-overview/evidencereport-overview.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PatientOverviewComponent,
-    PatientFormComponent
+    PatientFormComponent,
+    EvidencereportFormComponent,
+    EvidencereportOverviewComponent
   ],
   imports: [
     BrowserModule,

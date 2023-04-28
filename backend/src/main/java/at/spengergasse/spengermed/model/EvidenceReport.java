@@ -35,6 +35,6 @@ public class EvidenceReport extends DomainResource{
     private List<Identifier> identifier = new ArrayList<Identifier>();
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "su_ev_id", referencedColumnName = "id",nullable = false)
+    @JoinColumn(name = "su_ev_id", referencedColumnName = "id",nullable = true)
     private Subject subject;
 }
