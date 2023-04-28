@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class Ingredient extends BackboneElement {
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="in_cr_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name="in_cr_id", referencedColumnName = "id", nullable = true) //eigentlich false
     private CodeableReference item;
 
     @Column(name="in_isactive")

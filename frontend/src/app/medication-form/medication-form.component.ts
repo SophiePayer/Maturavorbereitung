@@ -95,8 +95,8 @@ export class MedicationFormComponent implements OnInit {
     createBatchFormGroup(): FormGroup {
       return new FormGroup({
         id:this.fb.control(''),
-        iotNumber: this.fb.control(''),
-        expirationDate: this.fb.control(Date)
+        iotnumber: this.fb.control(''),
+        expirationdate: this.fb.control(Date)
       })
     }
 
