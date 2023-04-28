@@ -1,7 +1,7 @@
 package at.spengergasse.spengermed;
 
-import at.spengergasse.spengermed.model.*;
-import at.spengergasse.spengermed.repository.EvidenceReportRepository;
+import at.spengergasse.spengermed.model.Immunization;
+import at.spengergasse.spengermed.model.RiskAssessment;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -13,16 +13,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import javax.transaction.Transactional;
 
 @SpringBootTest
-@AutoConfigureMockMvc //Anfragen an Controller geschickt und Responses ausgewertet
-public class EvidenceReportControllerTest {
+@AutoConfigureMockMvc
+public class ImmunizationControllerTest {
 
     @Autowired
     MockMvc mockMvc; //Ahmt ModuleViewController nach
@@ -31,11 +27,10 @@ public class EvidenceReportControllerTest {
     ObjectMapper om; //Macht aus Java-Objekt JSON-String
 
     @Test
-    @Transactional
-    public void getAllEvidenceReports() {
+    public void getAllImmunizations() {
         try {
             mockMvc
-                    .perform(MockMvcRequestBuilders.get("/api/evidencereport"))
+                    .perform(MockMvcRequestBuilders.get("/api/immunization"))
                     .andDo(MockMvcResultHandlers.print())
                     .andExpect(MockMvcResultMatchers.status().isOk()); //Statuscode: 200
         } catch (Exception e) {
@@ -44,32 +39,30 @@ public class EvidenceReportControllerTest {
     }
 
     @Test
-    @Transactional
-    public void getAEvidenceReport() {
+    public void getAImmunization() {
         try {
             mockMvc
-                    .perform(MockMvcRequestBuilders.get("/api/evidencereport/"+EvidenceReportRepositoryTest.returnOneEvidenceReport().getId().toString()))
+                    .perform(MockMvcRequestBuilders.get("/api/immunization/99990000-0000-0000-0000-000000000000"))
                     .andDo(MockMvcResultHandlers.print())
                     .andExpect(MockMvcResultMatchers.status().isOk()); //Statuscode: 200
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
-    @Test
     @Transactional
-    public void postAEvidenceReport() {
-        EvidenceReport evidenceReport = EvidenceReportRepositoryTest.returnOneEvidenceReport();
+    @Test
+    public void postAImmunization() {
+        Immunization immunization = ImmunizationRepositoryTest.returnOneImmunization();
         String json = null;
         try {
-            json = om.writeValueAsString(evidenceReport);
+            json = om.writeValueAsString(immunization);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
         try {
             mockMvc
                     .perform(MockMvcRequestBuilders
-                            .post("/api/evidencereport/")
+                            .post("/api/immunization/")
                             .accept(MediaType.APPLICATION_JSON)
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(json))
@@ -79,22 +72,21 @@ public class EvidenceReportControllerTest {
             e.printStackTrace();
         }
     }
-
-    @Test
     @Transactional
-    public void putAEvidenReport() {
-        EvidenceReport evidenceReport = EvidenceReportRepositoryTest.returnOneEvidenceReport();
-        evidenceReport.setId("00000000-0000-0000-0000-000000000000");
+    @Test
+    public void putAImmunization() {
+        Immunization immunization = ImmunizationRepositoryTest.returnOneImmunization();
+        immunization.setId("99990000-0000-0000-0000-000000000000");
         String json = null;
         try {
-            json = om.writeValueAsString(evidenceReport);
+            json = om.writeValueAsString(immunization);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
         try {
             mockMvc
                     .perform(MockMvcRequestBuilders
-                            .put("/api/evidencereport/"+EvidenceReportRepositoryTest.returnOneEvidenceReport().getId().toString())
+                            .put("/api/immunization/99990000-0000-0000-0000-000000000000")
                             .accept(MediaType.APPLICATION_JSON)
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(json))
@@ -104,22 +96,21 @@ public class EvidenceReportControllerTest {
             e.printStackTrace();
         }
     }
-
-    @Test
     @Transactional
-    public void putANewEvidenceReport() {
-        EvidenceReport evidenceReport = EvidenceReportRepositoryTest.returnOneEvidenceReport();
-        evidenceReport.setId("12341234");
+    @Test
+    public void putANewImmunization() {
+        Immunization immunization = ImmunizationRepositoryTest.returnOneImmunization();
+        immunization.setId("99990000-0000-0000-0000-000000000000");
         String json = null;
         try {
-            json = om.writeValueAsString(evidenceReport);
+            json = om.writeValueAsString(immunization);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
         try {
             mockMvc
                     .perform(MockMvcRequestBuilders
-                            .put("/api/evidencereport/12341234")
+                            .put("/api/immunization/99800000-0000-0000-0000-000000000000")
                             .accept(MediaType.APPLICATION_JSON)
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(json))
@@ -130,13 +121,13 @@ public class EvidenceReportControllerTest {
         }
     }
 
-    @Test
     @Transactional
-    public void deleteAEvidenceReport() {
+    @Test
+    public void deleteAImmunization() {
         try {
             mockMvc
                     .perform(MockMvcRequestBuilders
-                            .delete("/api/evidencereport/"+EvidenceReportRepositoryTest.returnOneEvidenceReport().getId().toString()))
+                            .delete("/api/immunization/99990000-0000-0000-0000-000000000000"))
                     .andDo(MockMvcResultHandlers.print())
                     .andExpect(MockMvcResultMatchers.status().isOk()); //Statuscode: 200
         } catch (Exception e) {
@@ -145,20 +136,15 @@ public class EvidenceReportControllerTest {
     }
 
     @Test
-    @Transactional
-    public void deleteAEvidenceReportNotFound() {
+    public void deleteAImmunizationNotFound() {
         try {
             mockMvc
                     .perform(MockMvcRequestBuilders
-                            .delete("/api/evidenceReport/ihiwvuejf"))
+                            .delete("/api/immunization/dfdf"))
                     .andDo(MockMvcResultHandlers.print())
                     .andExpect(MockMvcResultMatchers.status().isNotFound()); //Statuscode: 404
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
-
-
-
 }

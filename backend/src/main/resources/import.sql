@@ -246,3 +246,18 @@ INSERT INTO `in_ingredient`(`id`, `in_isactive`, `in_cr_id`, `in_ra_id`, `in_cc_
 
 -- MEDICATION ENDE
 
+-- 1:1 obs --
+INSERT INTO `re_reference` (`id`, `re_display`, `re_reference`, `re_type`) VALUES ('69690000-0000-0000-0000-000000000004', 'Observation', 'Observation/69910000-0000-0000-0000-000000000001', 'Observation');
+INSERT INTO `n_narrative` (`id`, `n_div`, `n_status`) VALUES ('69690000-0000-0000-0000-000000000003', '<div xmlns=\"http://www.w3.org/1999/xhtml\">Sept 17, 2012: Systolic Blood pressure107/60 mmHg (low)</div>', 'generated');
+INSERT INTO `obsd_observationdefinition` (`id`, `dr_n_id`) VALUES ('69690000-0000-0000-0000-000000000005', '69690000-0000-0000-0000-000000000003');
+
+-- observation --
+INSERT INTO `obs_observation` (`id`, `obs_canonical`, `dr_n_id`, `obs_re_id`, `obs_obsdef_id`) VALUES ('69910000-0000-0000-0000-000000000001', '69690000-0000-0000-0000-000000000002', '69690000-0000-0000-0000-000000000003', '69690000-0000-0000-0000-000000000004', '69690000-0000-0000-0000-000000000005');
+
+-- 1:n obs --
+INSERT INTO `tr_triggeredby` (`id`, `tr_re_id`, `obs_tr_id`) VALUES ('69910000-0000-0000-0000-000000000006', '69690000-0000-0000-0000-000000000004', '69910000-0000-0000-0000-000000000001');
+
+-- Insert für Immunization
+INSERT INTO `re_reference` (`id`, `re_reference`) VALUES ('77700000-0000-0000-0000-000000000000', 'Immunization');
+
+INSERT INTO `i_immunization` (`id`, `i_expirationdate`, `i_iotnumber`, `i_occurrencedatetime`, `i_occurrencestring`, `i_re_immunization`) VALUES ('99990000-0000-0000-0000-000000000000', '2007-03-03', '4', '1978-10-10', 'elo', '77700000-0000-0000-0000-000000000000');

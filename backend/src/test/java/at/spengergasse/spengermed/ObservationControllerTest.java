@@ -1,7 +1,7 @@
 package at.spengergasse.spengermed;
 
-import at.spengergasse.spengermed.model.*;
-import at.spengergasse.spengermed.repository.EvidenceReportRepository;
+
+import at.spengergasse.spengermed.model.Observation;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -13,16 +13,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @SpringBootTest
-@AutoConfigureMockMvc //Anfragen an Controller geschickt und Responses ausgewertet
-public class EvidenceReportControllerTest {
+@AutoConfigureMockMvc
+public class ObservationControllerTest {
 
     @Autowired
     MockMvc mockMvc; //Ahmt ModuleViewController nach
@@ -31,11 +25,10 @@ public class EvidenceReportControllerTest {
     ObjectMapper om; //Macht aus Java-Objekt JSON-String
 
     @Test
-    @Transactional
-    public void getAllEvidenceReports() {
+    public void getAllObservations() {
         try {
             mockMvc
-                    .perform(MockMvcRequestBuilders.get("/api/evidencereport"))
+                    .perform(MockMvcRequestBuilders.get("/api/observation"))
                     .andDo(MockMvcResultHandlers.print())
                     .andExpect(MockMvcResultMatchers.status().isOk()); //Statuscode: 200
         } catch (Exception e) {
@@ -44,11 +37,10 @@ public class EvidenceReportControllerTest {
     }
 
     @Test
-    @Transactional
-    public void getAEvidenceReport() {
+    public void getAObservation() {
         try {
             mockMvc
-                    .perform(MockMvcRequestBuilders.get("/api/evidencereport/"+EvidenceReportRepositoryTest.returnOneEvidenceReport().getId().toString()))
+                    .perform(MockMvcRequestBuilders.get("/api/observation/69910000-0000-0000-0000-000000000001"))
                     .andDo(MockMvcResultHandlers.print())
                     .andExpect(MockMvcResultMatchers.status().isOk()); //Statuscode: 200
         } catch (Exception e) {
@@ -57,19 +49,18 @@ public class EvidenceReportControllerTest {
     }
 
     @Test
-    @Transactional
-    public void postAEvidenceReport() {
-        EvidenceReport evidenceReport = EvidenceReportRepositoryTest.returnOneEvidenceReport();
+    public void postAObservation() {
+        Observation observation = ObservationRepositoryTest.returnOneObservation();
         String json = null;
         try {
-            json = om.writeValueAsString(evidenceReport);
+            json = om.writeValueAsString(observation);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
         try {
             mockMvc
                     .perform(MockMvcRequestBuilders
-                            .post("/api/evidencereport/")
+                            .post("/api/observation/")
                             .accept(MediaType.APPLICATION_JSON)
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(json))
@@ -81,20 +72,19 @@ public class EvidenceReportControllerTest {
     }
 
     @Test
-    @Transactional
-    public void putAEvidenReport() {
-        EvidenceReport evidenceReport = EvidenceReportRepositoryTest.returnOneEvidenceReport();
-        evidenceReport.setId("00000000-0000-0000-0000-000000000000");
+    public void putAObservation() {
+        Observation observation = ObservationRepositoryTest.returnOneObservation();
+        observation.setId("99990000-0000-0000-0000-000000000000");
         String json = null;
         try {
-            json = om.writeValueAsString(evidenceReport);
+            json = om.writeValueAsString(observation);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
         try {
             mockMvc
                     .perform(MockMvcRequestBuilders
-                            .put("/api/evidencereport/"+EvidenceReportRepositoryTest.returnOneEvidenceReport().getId().toString())
+                            .put("/api/observation/69910000-0000-0000-0000-000000000001")
                             .accept(MediaType.APPLICATION_JSON)
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(json))
@@ -106,20 +96,19 @@ public class EvidenceReportControllerTest {
     }
 
     @Test
-    @Transactional
-    public void putANewEvidenceReport() {
-        EvidenceReport evidenceReport = EvidenceReportRepositoryTest.returnOneEvidenceReport();
-        evidenceReport.setId("12341234");
+    public void putANewObservation() {
+        Observation observation = ObservationRepositoryTest.returnOneObservation();
+        observation.setId("obs12341234");
         String json = null;
         try {
-            json = om.writeValueAsString(evidenceReport);
+            json = om.writeValueAsString(observation);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
         try {
             mockMvc
                     .perform(MockMvcRequestBuilders
-                            .put("/api/evidencereport/12341234")
+                            .put("/api/observation/69910000-0000-0000-0000-000000000020")
                             .accept(MediaType.APPLICATION_JSON)
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(json))
@@ -131,12 +120,11 @@ public class EvidenceReportControllerTest {
     }
 
     @Test
-    @Transactional
-    public void deleteAEvidenceReport() {
+    public void deleteAObservation() {
         try {
             mockMvc
                     .perform(MockMvcRequestBuilders
-                            .delete("/api/evidencereport/"+EvidenceReportRepositoryTest.returnOneEvidenceReport().getId().toString()))
+                            .delete("/api/observation/69910000-0000-0000-0000-000000000001"))
                     .andDo(MockMvcResultHandlers.print())
                     .andExpect(MockMvcResultMatchers.status().isOk()); //Statuscode: 200
         } catch (Exception e) {
@@ -145,20 +133,15 @@ public class EvidenceReportControllerTest {
     }
 
     @Test
-    @Transactional
-    public void deleteAEvidenceReportNotFound() {
+    public void deleteAObservationNotFound() {
         try {
             mockMvc
                     .perform(MockMvcRequestBuilders
-                            .delete("/api/evidenceReport/ihiwvuejf"))
+                            .delete("/api/observation/obs123456789"))
                     .andDo(MockMvcResultHandlers.print())
                     .andExpect(MockMvcResultMatchers.status().isNotFound()); //Statuscode: 404
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
-
-
-
 }
