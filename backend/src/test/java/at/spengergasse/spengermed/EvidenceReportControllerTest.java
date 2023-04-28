@@ -94,7 +94,7 @@ public class EvidenceReportControllerTest {
         try {
             mockMvc
                     .perform(MockMvcRequestBuilders
-                            .put("/api/evidencereport/00000000-0000-0000-0000-000000000000")
+                            .put("/api/evidencereport/"+EvidenceReportRepositoryTest.returnOneEvidenceReport().getId().toString())
                             .accept(MediaType.APPLICATION_JSON)
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(json))
