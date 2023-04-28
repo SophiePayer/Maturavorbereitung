@@ -83,9 +83,9 @@ export class PatientFormComponent implements OnInit {
     use: new FormControl<string>(""),
     text: new FormControl<string>(""),
     family: new FormControl<string>(""),
-    given: new FormArray([new FormControl<string>("")]),
-    prefix: new FormArray([new FormControl<string>("")]),
-    suffix: new FormArray([new FormControl<string>("")]),
+    given: new FormArray([]),
+    prefix: new FormArray([]),
+    suffix: new FormArray([]),
     period: this.periodFormGroup()
   });
 
@@ -169,6 +169,22 @@ export class PatientFormComponent implements OnInit {
 
   getNameControls(): any {
     return (this.patientForm.controls["name"] as any).controls;
+  }
+
+  getLines(form:any){
+    return form.controls.line.controls;
+  }
+
+  getGiven(form:any){
+    return form.controls.given.controls;
+  }
+
+  getPrefix(form:any){
+    return form.controls.prefix.controls;
+  }
+
+  getSuffix(form:any){
+    return form.controls.suffix.controls;
   }
 
   getIdentifierControls(): any {

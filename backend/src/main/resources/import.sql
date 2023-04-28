@@ -191,7 +191,7 @@ INSERT INTO `li_lineitem` (`id`, `li_type`, `li_re_id`, `li_cc_id`, `li_in_id`) 
 --Identifier
 INSERT INTO `i_identifier` (`id`, `i_use`, `i_value`) VALUES ('00000000-0000-0000-0000-999999999998', 'temp', 'Bundle_01');
 --Bundle
-INSERT INTO `bu_bundle` (`id`, `bu_i_id`, `bu_total`) VALUES ('00000000-0000-0000-0000-999999999997', '00000000-0000-0000-0000-999999999998', '10')
+INSERT INTO `bu_bundle` (`id`, `bu_i_id`, `bu_total`) VALUES ('00000000-0000-0000-0000-999999999997', '00000000-0000-0000-0000-999999999998', '10');
 --Link
 INSERT INTO `lk_link` (`id`, `lk_relation`, `lk_uri`, `lk_bu_id`) VALUES ('00000000-0000-0000-0000-999999999999', 'self', 'link', '00000000-0000-0000-0000-999999999997');
 
@@ -213,3 +213,46 @@ INSERT INTO `me_measure` (`id`, `me_version`, `me_date`, `me_url`, `me_gr_id`, `
 --Identifier
 INSERT INTO `i_identifier` (`id`, `i_use`, `i_value`, `i_me_id`) VALUES ('99910000-0000-0000-0000-000000000000', 'official', 'exclusive-breastfeeding-measure', 'component-a-example');
 
+-- 270423: Inserts für Medication
+-- 1:1 Beziehungen mit dem Patienten müssen vor dem Patienten eingefügt werden.
+-- 1:n Beziehungen mit dem Patienten müssen nach dem Patienten eingefügt werden
+
+INSERT INTO `cc_codeableconcept` (`id`, `cc_text`) VALUES ('11111001-0000-0000-0000-000000000000', 'Negative for Chlamydia Trachomatis rRNA');
+INSERT INTO `co_coding` (`id`, `co_code`, `co_system`, `co_display`, `co_cc_id`) VALUES ('11111002-0000-0000-0000-000000000000', '260385009', 'http://snomed.info/sct', 'Negative', '11111001-0000-0000-0000-000000000000');
+INSERT INTO `q_quantity` (`id`, `q_value`, `q_comparator`, `q_unit`, `q_system`, `q_code`) VALUES ('11111003-0000-0000-0000-000000000000', 123, 'comp1', 'unit3', 'SnomedSystem', 'HEX123//ßgh');
+INSERT INTO `b_batch`(`id`, `b_Iotnumber`, `b_expirationdate`) VALUES ('11111007-0000-0000-0000-000000000000', '123', '2024-03-08');
+
+INSERT INTO `med_medication` (`id`, `med_status`, `med_cc_id`, `med_q_id`, `med_b_id`) VALUES ('11111000-0000-0000-0000-000000000000', 'active','11111001-0000-0000-0000-000000000000', '11111003-0000-0000-0000-000000000000', '11111007-0000-0000-0000-000000000000');
+
+INSERT INTO `i_identifier` (`id`, `i_use`, `i_value`, `i_med_id`) VALUES ('11111004-0000-0000-0000-000000000000', 'official', 'exclusive-breastfeeding-measure', '11111000-0000-0000-0000-000000000000');
+
+INSERT INTO `cr_codeablereference` (`id`, `cr_cc_id`, `cr_re_id`) VALUES ('11111005-0000-0000-0000-000000000000', null, null);
+
+INSERT INTO `in_ingredient`(`id`, `in_isactive`, `in_cr_id`, `in_ra_id`, `in_cc_id`, `in_q_id`, `in_med_id`) VALUES ('11111006-0000-0000-0000-000000000000', true, '11111005-0000-0000-0000-000000000000', null, null, null, '11111000-0000-0000-0000-000000000000');
+
+-- 2.medication
+INSERT INTO `cc_codeableconcept` (`id`, `cc_text`) VALUES ('11111001-0000-0000-0000-000000000001', 'Negative for Chlamydia Trachomatis rRNA');
+INSERT INTO `co_coding` (`id`, `co_code`, `co_system`, `co_display`, `co_cc_id`) VALUES ('11111002-0000-0000-0000-000000000001', '260385009', 'http://snomed.info/sct', 'Negative', '11111001-0000-0000-0000-000000000001');
+INSERT INTO `q_quantity` (`id`, `q_value`, `q_comparator`, `q_unit`, `q_system`, `q_code`) VALUES ('11111003-0000-0000-0000-000000000001', 123, 'comp1', 'unit3', 'SnomedSystem', 'HEX123//ßgh');
+INSERT INTO `b_batch`(`id`, `b_Iotnumber`, `b_expirationdate`) VALUES ('11111007-0000-0000-0000-000000000001', '123', '2024-03-08');
+
+INSERT INTO `med_medication` (`id`, `med_status`, `med_cc_id`, `med_q_id`, `med_b_id`) VALUES ('11111000-0000-0000-0000-000000000001', 'active','11111001-0000-0000-0000-000000000001', '11111003-0000-0000-0000-000000000001', '11111007-0000-0000-0000-000000000001');
+
+INSERT INTO `i_identifier` (`id`, `i_use`, `i_value`, `i_med_id`) VALUES ('11111004-0000-0000-0000-000000000001', 'official', 'exclusive-breastfeeding-measure', '11111000-0000-0000-0000-000000000001');
+
+INSERT INTO `cr_codeablereference` (`id`, `cr_cc_id`, `cr_re_id`) VALUES ('11111005-0000-0000-0000-000000000001', null, null);
+
+INSERT INTO `in_ingredient`(`id`, `in_isactive`, `in_cr_id`, `in_ra_id`, `in_cc_id`, `in_q_id`, `in_med_id`) VALUES ('11111006-0000-0000-0000-000000000001', true, '11111005-0000-0000-0000-000000000001', null, null, null, '11111000-0000-0000-0000-000000000001');
+
+-- MEDICATION ENDE
+
+-- 1:1 obs --
+INSERT INTO `re_reference` (`id`, `re_display`, `re_reference`, `re_type`) VALUES ('69690000-0000-0000-0000-000000000004', 'Observation', 'Observation/69910000-0000-0000-0000-000000000001', 'Observation');
+INSERT INTO `n_narrative` (`id`, `n_div`, `n_status`) VALUES ('69690000-0000-0000-0000-000000000003', '<div xmlns=\"http://www.w3.org/1999/xhtml\">Sept 17, 2012: Systolic Blood pressure107/60 mmHg (low)</div>', 'generated');
+INSERT INTO `obsd_observationdefinition` (`id`, `dr_n_id`) VALUES ('69690000-0000-0000-0000-000000000005', '69690000-0000-0000-0000-000000000003');
+
+-- observation --
+INSERT INTO `obs_observation` (`id`, `obs_canonical`, `dr_n_id`, `obs_re_id`, `obs_obsdef_id`) VALUES ('69910000-0000-0000-0000-000000000001', '69690000-0000-0000-0000-000000000002', '69690000-0000-0000-0000-000000000003', '69690000-0000-0000-0000-000000000004', '69690000-0000-0000-0000-000000000005');
+
+-- 1:n obs --
+INSERT INTO `mis`.`tr_triggeredby` (`id`, `tr_re_id`, `obs_tr_id`) VALUES ('69910000-0000-0000-0000-000000000006', '69690000-0000-0000-0000-000000000004', '69910000-0000-0000-0000-000000000001');
