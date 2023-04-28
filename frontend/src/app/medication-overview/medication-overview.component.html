@@ -1,0 +1,65 @@
+<h3>Medication Overview</h3>
+<table *ngFor="let medicationItem of medicationData; index as i" style="border: 1px solid black; width: 100%;">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>StatusCode</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{ medicationItem.id }}</td>
+            <td>{{ medicationItem.status}}</td>
+        </tr>
+    
+     <!--    <tr>
+            <h4>Identifier</h4>
+            <table *ngFor="let identifier of medicationItem.identifier">
+                <tr>
+                    <td>{{identifier.use}}</td>
+                    <td>{{identifier.value}}</td>
+                    <td>{{identifier.system}}</td>
+                    <td>{{identifier.display}}</td>
+                    <td>{{identifier.reference}}</td>
+                </tr>
+            </table>
+        </tr>
+        <tr>
+            <h4>Quantity</h4>
+            <table *ngFor="let quantity of medicationItem.totalVolume">
+                <tr>
+                    <td>{{quantity.decimal}}</td>
+                    <td>{{quantity.comparator}}</td>
+                    <td>{{quantity.unit}}</td>
+                    <td>{{quantity.system}}</td>
+                    <td>{{quantity.code}}</td>
+                </tr>
+            </table>
+        </tr>
+        <tr>
+            <h4>Ingredient</h4>
+            <table *ngFor="let ingredient of medicationItem.ingredient">
+                <tr>
+                    <td>{{ingredient.isActive}}</td>
+                    <td>{{ingredient.item}}</td>
+                    <td>{{ingredient.strengthRatio}}</td>
+                    <td>{{ingredient.strengthCC}}</td>
+                    <td>{{ingredient.strengthQuantity}}</td>
+                </tr>
+            </table>
+        </tr>
+        <tr>
+            <h4>Batch</h4>
+            <table *ngFor="let batch of medicationItem.batch">
+                <tr>
+                    <td>{{batch.iotnumber}}</td>
+                    <td>{{batch.expirationdate}}</td>
+    
+                </tr>
+            </table>
+        </tr> -->
+        <button (click)="removeMedication(medicationItem.id)">Delete Medication</button>
+        <button routerLink="/medication/{{medicationItem.id}}">Update Medication</button>
+    </tbody>
+</table>
+<button routerLink='/medication/new'>Add Medication</button>
