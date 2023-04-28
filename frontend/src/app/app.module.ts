@@ -12,6 +12,8 @@ import { EvidencereportFormComponent } from './evidencereport-form/evidencerepor
 import { EvidencereportOverviewComponent } from './evidencereport-overview/evidencereport-overview.component';
 import { MedicationOverviewComponent } from './medication-overview/medication-overview.component';
 import { MedicationFormComponent } from './medication-form/medication-form.component';
+import { ObservationFormComponent } from './observation-form/observation-form.component';
+import { ObservationOverviewComponent } from './observation-overview/observation-overview.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { MedicationFormComponent } from './medication-form/medication-form.compo
     EvidencereportFormComponent,
     EvidencereportOverviewComponent,
     MedicationOverviewComponent,
-    MedicationFormComponent
+    MedicationFormComponent,
+    ObservationFormComponent,
+    ObservationOverviewComponent
   ],
   imports: [
     BrowserModule,

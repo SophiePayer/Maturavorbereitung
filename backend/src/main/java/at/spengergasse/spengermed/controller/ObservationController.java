@@ -35,7 +35,7 @@ public class ObservationController {
     //New Observation
     @PostMapping()
     public ResponseEntity<Observation> createObservation(@RequestBody Observation observation) {
-        observation.setId(null); //ensures that that Observation is new
+
         var saved = observationRepository.save(observation);
         return ResponseEntity.created(URI.create("api/observation/" +saved.getId())).body(saved);
     }

@@ -80,7 +80,7 @@ export class ObservationFormComponent implements OnInit {
 
   public observationForm: FormGroup = new FormGroup({
     id: new FormControl<number | null>(null),
-    canonical: new FormControl<string>(this.emptyObservation.canonical),
+    canonical: new FormControl<string>("ok"),
     instantiatesReference: this.createInstantiatesReferenceFormGroup(),
     observationDefinition: this.createObservationDefinitionFormGroup(),
     identifier: new FormArray<FormGroup>([]),
