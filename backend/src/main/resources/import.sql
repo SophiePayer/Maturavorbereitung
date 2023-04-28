@@ -256,3 +256,8 @@ INSERT INTO `obs_observation` (`id`, `obs_canonical`, `dr_n_id`, `obs_re_id`, `o
 
 -- 1:n obs --
 INSERT INTO `mis`.`tr_triggeredby` (`id`, `tr_re_id`, `obs_tr_id`) VALUES ('69910000-0000-0000-0000-000000000006', '69690000-0000-0000-0000-000000000004', '69910000-0000-0000-0000-000000000001');
+
+-- Insert für Immunization
+INSERT INTO `re_reference` (`id`, `re_reference`) VALUES ('77700000-0000-0000-0000-000000000000', 'Immunization');
+
+INSERT INTO `i_immunization` (`id`, `i_expirationdate`, `i_iotnumber`, `i_occurrencedatetime`, `i_occurrencestring`, `i_re_immunization`) VALUES ('99990000-0000-0000-0000-000000000000', '2007-03-03', '4', '1978-10-10', 'elo', '77700000-0000-0000-0000-000000000000');
