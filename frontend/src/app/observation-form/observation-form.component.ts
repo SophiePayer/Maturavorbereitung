@@ -9,13 +9,7 @@ import { ObservationService } from '../observation.service';
   styleUrls: ['./observation-form.component.css']
 })
 export class ObservationFormComponent implements OnInit {
-  createObservationDefinitionFormGroup(): any {
-    throw new Error('Method not implemented.');
-  }
-  createInstantiatesReferenceFormGroup(): any {
-    throw new Error('Method not implemented.');
-  }
-
+  
   constructor(
     private observationService: ObservationService, 
     private formBuilder: FormBuilder, 
@@ -40,29 +34,29 @@ export class ObservationFormComponent implements OnInit {
     type: "",
     display: "",
     period: []
-  }
+  };
 
   emptyPeriod: any = {
     id:0,
     start: "",
     end: ""
-  }
+  };
 
   emptyBasedOn: any = {
     id: 0, 
     reference: "",
     type: "",
     display: ""
-  }
+  };
 
   emptyTriggeredBy: any = {
     id: 0, 
-  }
+  };
 
   private periodFormGroup = () => new FormGroup({
     start: new FormControl<Date>(this.emptyPeriod.start),
     end: new FormControl<Date>(this.emptyPeriod.end)
-  })
+  });
 
   private identifierFormGroup = () => new FormGroup({
     use: new FormControl<string>(""),
@@ -93,6 +87,23 @@ export class ObservationFormComponent implements OnInit {
     basedon: new FormArray<FormGroup>([]),
     triggeredby: new FormArray<FormGroup>([]),
   });
+
+  createObservationDefinitionFormGroup():FormGroup {
+    return new FormGroup({
+      id: this.formBuilder.control('')
+
+    });
+  }
+
+  createInstantiatesReferenceFormGroup():FormGroup {
+    return new FormGroup({
+      id: this.formBuilder.control(''),
+      reference: this.formBuilder.control(''),
+      type: this.formBuilder.control(''),
+      display: this.formBuilder.control('')
+    });
+  }
+
 
   public addTriggeredBy(amount: number = 1): void{
 
