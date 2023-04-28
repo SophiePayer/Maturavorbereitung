@@ -1,0 +1,46 @@
+<form [formGroup]="evidenceReportForm">
+    <h3>Evidence</h3>
+    
+      
+      Identfifiers: <button (click)="addIdentifier()">+</button>
+        <div *ngFor="let identifier of getIdentifierControls(); index as i" [formGroup]="identifier" >
+          <div>
+            <label >Use:</label>
+            <select formControlName="use">
+              <option value="usual">Usual</option>
+              <option value="official">Official</option>
+              <option value="temp">Temp</option>
+              <option value="secondary">Secondary</option>
+              <option value="old">Old</option>
+            </select>
+          </div>
+          <div>
+            <label >System:</label>
+            <textarea formControlName="system" ></textarea>
+          </div>
+          <div>
+            <label >Value:</label>
+            <textarea formControlName="value" ></textarea>
+          </div>
+          <div>
+            <label >Display:</label>
+            <textarea formControlName="display" ></textarea>
+          </div>
+          <ng-container formGroupName="period">
+            <div>
+              <label>Start:</label>
+              <input type="datetime-local" placeholder="start" formControlName="start">
+            </div>
+            <div>
+              <label>End:</label>
+              <input type="datetime-local" placeholder="end" formControlName="end">
+            </div>
+          </ng-container>
+          <button (click)="removeIdentifier(i)">-</button>
+          <hr>
+        </div>
+      <button (click)="onSubmit()">Submit</button>
+  </form>
+  
+  <pre>{{evidenceReportForm.value|json}}</pre>
+  
