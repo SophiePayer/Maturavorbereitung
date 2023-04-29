@@ -1,0 +1,42 @@
+<h3>Observation Overview</h3>
+<table *ngFor="let observationItem of observationData; index as i" style="border: 1px solid black; width: 100%;">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Canonical</th>
+            <th>InstantiatesReference</th>
+            <th>ObservationDefinition</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{ observationItem.id }}</td>
+            <td>{{ observationItem.canonical }}</td>
+            <td>{{ observationItem.instantiatesReference }}</td>
+            <td>{{ observationItem.observationDefinition }}</td>
+        </tr>
+        <tr>
+            <h4>BasedOn</h4>
+            <table *ngFor="let basedon of observationItem.reference">
+                <tr>
+                    <td>{{basedon.reference}}</td>
+                    <td>{{basedon.type}}</td>
+                    <td>{{basedon.identifier}}</td>
+                    <td>{{basedon.display}}</td>
+                </tr>
+            </table>
+        </tr>
+        <tr>
+            <h4>TriggeredBy</h4>
+            <table *ngFor="let triggeredby of observationItem.triggeredby">
+                <tr>
+                    <td>{{triggeredby.identifier}}</td>
+                </tr>
+            </table>
+        </tr>
+        <tr>
+        <button (click)="removeObservation(observationItem.id)">Delete Observation</button>
+        <button routerLink="/observation/{{observationItem.id}}">Update Observation</button>
+    </tbody>
+</table>
+<button routerLink='/observation/new'>Add Observation</button>

@@ -1,0 +1,151 @@
+<form [formGroup]="medicationForm">
+    <h3>Medication</h3>
+    
+    <div>
+        <label>StatusCode:</label>
+        <select formControlName="status">
+          <option value="active">active</option>
+          <option value="inactive">inactive</option>
+          <option value="enteredInError">enteredInError/option>
+        </select>
+      </div>
+     
+      Identfifiers: <button (click)="addIdentifier()">+</button>
+        <div *ngFor="let identifier of getIdentifierControls(); index as i" [formGroup]="identifier" >
+          <div>
+            <label >Use:</label>
+            <select formControlName="use">
+              <option value="usual">Usual</option>
+              <option value="official">Official</option>
+              <option value="temp">Temp</option>
+              <option value="secondary">Secondary</option>
+              <option value="old">Old</option>
+            </select>
+          </div>
+          <div>
+            <label >System:</label>
+            <textarea formControlName="system" ></textarea>
+          </div>
+          <div>
+            <label >Value:</label>
+            <textarea formControlName="value" ></textarea>
+          </div>
+          <div>
+            <label >Display:</label>
+            <textarea formControlName="display" ></textarea>
+          </div>
+          <ng-container formGroupName="period">
+            <div>
+              <label>Start:</label>
+              <input type="datetime-local" placeholder="start" formControlName="start">
+            </div>
+            <div>
+              <label>End:</label>
+              <input type="datetime-local" placeholder="end" formControlName="end">
+            </div>
+          </ng-container>
+          <button (click)="removeIdentifier(i)">-</button>
+          <hr>
+        </div>
+  
+    
+        Ingredient: <button (click)="addIngredient()">+</button>
+        <div *ngFor="let ingredient of getIngredientControls(); index as i" [formGroup]="ingredient" >
+          <div>
+            <label >isActive:</label>
+            <select formControlName="isActive">
+                <option value="true">true</option>
+                <option value="false">false</option>
+              </select>
+          </div>
+
+          <ng-container formGroupName="strengthRatio">
+            <div>
+             
+            </div>
+             
+          </ng-container>
+          <ng-container formGroupName="strengthCC">
+            <div>
+             
+            </div>
+            <div>
+              
+            </div>
+          </ng-container>
+
+            
+          <ng-container formGroupName="strengthQuantity">
+            <div>
+              <label>Decimal:</label>
+              <input type="number" placeholder="123" formControlName="decimal">
+            </div>
+            <div>
+              <label>System:</label>
+              <input type="text" placeholder="" formControlName="system">
+            </div>
+            <div>
+                <label>Comparator:</label>
+                <input type="text" placeholder="" formControlName="comparator">
+              </div>
+              <div>
+                <label>Code:</label>
+                <input type="text" placeholder="" formControlName="code">
+              </div>
+              <div>
+                <label>Unit:</label>
+                <input type="text" placeholder="" formControlName="unit">
+              </div>
+          </ng-container>
+  
+          <button (click)="removeIngredient(i)">-</button>
+          <hr>
+        </div>
+        <ng-container formGroupName="code">
+            <div>
+              
+            </div>
+            <div>
+              
+            </div>
+          </ng-container>
+          <ng-container formGroupName="totalVolume">
+            <div>
+                <label>Decimal:</label>
+                <input type="number" placeholder="123" formControlName="decimal">
+              </div>
+              <div>
+                <label>System:</label>
+                <input type="text" placeholder="" formControlName="system">
+              </div>
+              <div>
+                  <label>Comparator:</label>
+                  <input type="text" placeholder="" formControlName="comparator">
+                </div>
+                <div>
+                  <label>Code:</label>
+                  <input type="text" placeholder="" formControlName="code">
+                </div>
+                <div>
+                  <label>Unit:</label>
+                  <input type="text" placeholder="" formControlName="unit">
+                </div>
+          </ng-container>
+          <ng-container formGroupName="batch">
+            <div>
+              <label>IoTNumber:</label>
+              <input type="number" placeholder="" formControlName="iotnumber">
+            </div>
+            <div>
+              <label>ExpirationDate:</label>
+              <input type="date" placeholder="" formControlName="expirationdate">
+            </div>
+          </ng-container>
+  
+       
+  
+      <button (click)="onSubmit()">Submit</button>
+  </form>
+  
+  <pre>{{medicationForm.value|json}}</pre>
+  
