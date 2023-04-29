@@ -8,12 +8,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { PatientFormComponent } from './patient-form/patient-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ImmunizationFormComponent } from './immunization-form/immunization-form.component';
+import { ImmunizationOverviewComponent } from './immunization-overview/immunization-overview.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PatientOverviewComponent,
-    PatientFormComponent
+    PatientFormComponent,
+    ImmunizationFormComponent,
+    ImmunizationOverviewComponent
   ],
   imports: [
     BrowserModule,
