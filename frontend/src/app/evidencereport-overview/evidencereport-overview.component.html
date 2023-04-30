@@ -1,0 +1,35 @@
+<h3>EvidenceReport Overview</h3>
+<table *ngFor="let evidenceItem of evidenceData; index as i" style="border: 1px solid black; width: 100%; text-align: left;">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Active</th>
+            <th>Gender</th>
+            <th>Birthdate</th>
+            <th>DeceasedBoolean</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{ evidenceItem.id }}</td>
+            <td>{{ evidenceItem.url }}</td>
+            <td>{{ evidenceItem.status }}</td>
+        </tr>
+        <tr>
+            <h4>Identifier</h4>
+            <table *ngFor="let identifier of evidenceItem.identifier">
+                <tr>
+                    <td>{{identifier.use}}</td>
+                    <td>{{identifier.value}}</td>
+                    <td>{{identifier.system}}</td>
+                    <td>{{identifier.display}}</td>
+                    <td>{{identifier.reference}}</td>
+                </tr>
+            </table>
+        </tr>
+        
+        <button (click)="removeEvidenceReport(evidenceItem.id)">Delete EvidenceReport</button>
+        <button routerLink="/evidence/{{evidenceItem.id}}">Update EvidenceReport</button>
+    </tbody>
+</table>
+<button routerLink='/evidence/new'>Add EvidenceReport</button>
