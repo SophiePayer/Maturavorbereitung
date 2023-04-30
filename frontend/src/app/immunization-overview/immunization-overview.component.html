@@ -1,0 +1,28 @@
+<h3>Immunization Overview</h3>
+<table *ngFor="let immunizationItem of immunizationData; index as i" style="border: 1px solid black; width: 100%; text-align: left;">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>IotNumber</th>
+            <th>OccurrenceString</th> 
+            <th>Patient</th>
+            <th>Expirationdate</th>
+            <th>OccurrenceDateTime</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{ immunizationItem.id }}</td>
+            <td>{{ immunizationItem.iotnumber }}</td>
+            <td>{{ immunizationItem.occurenceString }}</td>
+            <td>{{ immunizationItem.patient }}</td>
+            <td>{{ immunizationItem.expirationdate}}</td>
+            <td>{{ immunizationItem.occurrenceDateTime}}</td>
+        </tr>
+        
+    
+        <button (click)="removeImmunization(immunizationItem.id)">Delete Immunization</button>
+        <button routerLink="/immunization/{{immunizationItem.id}}">Update Immunization</button>
+    </tbody>
+</table>
+<button routerLink='/immunization/new'>Add immunization</button>
