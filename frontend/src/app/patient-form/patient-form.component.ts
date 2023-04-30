@@ -36,7 +36,6 @@ export class PatientFormComponent implements OnInit {
     use: "usual",
     value: "",
     system: "",
-    type: "",
     display: "",
     period: []
   }

@@ -21,17 +21,17 @@ export class PatientService {
     return this.http.get<Patient>(PatientService.BASE_PATIENT_URL + id)
   }
 
-  // Einen Practitioner editieren
+  // Einen Patient editieren
   public putPatient(patient:any){
     return this.http.put<Patient>(PatientService.BASE_PATIENT_URL + patient.id, patient)
   }
 
-  //Einen Practitioner löschen
+  //Einen Patient löschen
   public deletePatientById(id:string){
     return this.http.delete(PatientService.BASE_PATIENT_URL + id)
   }
 
-  //Einen Practitioner hinzufügen
+  //Einen Patient hinzufügen
   public postPatient(patient:any){
     return this.http.post<Patient>(PatientService.BASE_PATIENT_URL, patient)
   }
