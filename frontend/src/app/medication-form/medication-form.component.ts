@@ -9,11 +9,11 @@ import { MedicationService } from '../medication.service';
   styleUrls: ['./medication-form.component.css']
 })
 export class MedicationFormComponent implements OnInit {
- 
 
-  constructor( private medicationService: MedicationService, 
-    private fb: FormBuilder, 
-    private route: ActivatedRoute, 
+
+  constructor( private medicationService: MedicationService,
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
     private router: Router ) { }
 
 
@@ -36,7 +36,7 @@ export class MedicationFormComponent implements OnInit {
       batch: this.createBatchFormGroup(),
       totalVolume: this.createQuantityFormGroup(),
       code: this.createCodeableConceptFormGroup(),
-      
+
     });
 
     createIdentifierFormGroup(): FormGroup{
@@ -45,7 +45,7 @@ export class MedicationFormComponent implements OnInit {
         system: this.fb.control(''),
         value: this.fb.control(''),
         display: this.fb.control(''),
-        period: this.createPeriodFormGroup()          
+        period: this.createPeriodFormGroup()
         })
     }
     public createPeriodFormGroup(){
@@ -152,17 +152,17 @@ export class MedicationFormComponent implements OnInit {
       if (params['id'] === undefined || params['id'] === null || params['id'] === ""){
         this.medicationForm.patchValue(this.emptyMedication);
       }else{
-        this.medicationService.getMedicationById(params['id']).subscribe((response: any) => {          
+        this.medicationService.getMedicationById(params['id']).subscribe((response: any) => {
 
           // adjust comment controls amount
           this.addIngredient(response.ingredient.length);
           this.addIdentifier(response.identifier.length);
-        
+
           this.medicationForm.patchValue(response);
           console.log(response);
-          
+
           console.log("MedicationForm",this.medicationForm.value);
-          
+
         });
       }
 
@@ -172,12 +172,12 @@ export class MedicationFormComponent implements OnInit {
   onDateChange(event: any) {
 
     console.log(event.target.value);
-    
+
     //this.objectForm.patchValue({ creationDateTime: new Date(event.target.value) });
   }
 
   onSubmit() {
-    if (this.medicationForm.valid) {      
+    if (this.medicationForm.valid) {
       const updatedObject: any = {
         id: this.medicationForm.value.id,
         identifier: this.medicationForm.value.identifier,
@@ -186,14 +186,14 @@ export class MedicationFormComponent implements OnInit {
         batch: this.medicationForm.value.batch,
         totalVolume: this.medicationForm.value.totalVolume,
         code:this.medicationForm.value.code,
-      
+
       };
 
       console.log(updatedObject);
       this.medicationService.putMedication(updatedObject).subscribe(response => {
         console.log(response);
         this.router.navigate(["/medicationoverview"]);
-        
+
       });
     }
   }

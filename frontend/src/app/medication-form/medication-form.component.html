@@ -1,6 +1,6 @@
 <form [formGroup]="medicationForm">
     <h3>Medication</h3>
-    
+
     <div>
         <label>StatusCode:</label>
         <select formControlName="status">
@@ -9,7 +9,7 @@
           <option value="enteredInError">enteredInError</option>
         </select>
       </div>
-     
+
       Identfifiers: <button (click)="addIdentifier()">+</button>
         <div *ngFor="let identifier of getIdentifierControls(); index as i" [formGroup]="identifier" >
           <div>
@@ -47,8 +47,8 @@
           <button (click)="removeIdentifier(i)">-</button>
           <hr>
         </div>
-  
-    
+
+
         Ingredient: <button (click)="addIngredient()">+</button>
         <div *ngFor="let ingredient of getIngredientControls(); index as i" [formGroup]="ingredient" >
           <div>
@@ -61,20 +61,20 @@
 
           <ng-container formGroupName="strengthRatio">
             <div>
-             
+
             </div>
-             
+
           </ng-container>
           <ng-container formGroupName="strengthCC">
             <div>
-             
+
             </div>
             <div>
-              
+
             </div>
           </ng-container>
 
-            
+
           <ng-container formGroupName="strengthQuantity">
             <div>
               <label>Decimal:</label>
@@ -97,16 +97,16 @@
                 <input type="text" placeholder="" formControlName="unit">
               </div>
           </ng-container>
-  
+
           <button (click)="removeIngredient(i)">-</button>
           <hr>
         </div>
         <ng-container formGroupName="code">
             <div>
-              
+
             </div>
             <div>
-              
+
             </div>
           </ng-container>
           <ng-container formGroupName="totalVolume">
@@ -141,11 +141,10 @@
               <input type="date" placeholder="" formControlName="expirationdate">
             </div>
           </ng-container>
-  
-       
-  
+
+
+
       <button (click)="onSubmit()">Submit</button>
   </form>
-  
+
   <pre>{{medicationForm.value|json}}</pre>
-  

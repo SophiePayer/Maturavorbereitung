@@ -11,10 +11,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class EvidencereportFormComponent implements OnInit {
 
   constructor(
-    private evidenceService: EvidenceReportService, 
-    private formBuilder: FormBuilder, 
-    private route: ActivatedRoute, 
-    private router: Router 
+    private evidenceService: EvidenceReportService,
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router
     ) { }
 
 
@@ -28,7 +28,7 @@ export class EvidencereportFormComponent implements OnInit {
   };
 
   emptyIdentifier: any = {
-    id: 0, 
+    id: 0,
     use: "usual",
     value: "",
     system: "",
@@ -38,11 +38,11 @@ export class EvidencereportFormComponent implements OnInit {
   }
 
   emptyUsageContext: any = {
-    id: null, 
+    id: null,
     code: {},
     valueCodeableConcept: {},
     valueReference: {},
-    
+
   }
  emptyPeriod: any = {
     id:null,
@@ -64,7 +64,7 @@ export class EvidencereportFormComponent implements OnInit {
     coding: [],
     text: ""
   }
-  
+
   emptyReference: any = {
     id:null,
     reference: "",
@@ -80,14 +80,14 @@ export class EvidencereportFormComponent implements OnInit {
   }
 
   emptyCharacteristic: any = {
-    id: null, 
+    id: null,
     code: {},
     valueCodeableConcept: {},
     valueReference: {},
   }
 
   emptyAnnotation: any = {
-    id: null, 
+    id: null,
     authorReference: {},
     authorString: "",
     text: "",
@@ -107,7 +107,7 @@ export class EvidencereportFormComponent implements OnInit {
     period: this.periodFormGroup(),
   });
 
-  
+
   private usageContextFormGroup = () => new FormGroup({
     code: this.codingFormGroup(),
     valueCodeableConcept: this.codeableconceptFormGroup(),
@@ -136,7 +136,7 @@ export class EvidencereportFormComponent implements OnInit {
   private subjectFormGroup = () => new FormGroup({
     characteristics: new FormArray([this.characteristicFormGroup()]),
     note: new FormArray([this.annotationFormgroup()])
-  
+
   });
 
   private characteristicFormGroup = () => new FormGroup({
@@ -173,7 +173,7 @@ export class EvidencereportFormComponent implements OnInit {
       (this.evidenceReportForm.controls["useContext"] as any).push(this.usageContextFormGroup());
     }
   }
- 
+
 
   removeIdentifier(index: number) {
     (this.evidenceReportForm.controls["identifier"] as any).removeAt(index);
@@ -198,15 +198,15 @@ export class EvidencereportFormComponent implements OnInit {
       if (params['id'] === undefined || params['id'] === null || params['id'] === ""){
         this.evidenceReportForm.patchValue(this.emptyEvidenceReport);
       }else{
-        this.evidenceService.getEvidenceReportById(params['id']).subscribe((response: any) => {          
+        this.evidenceService.getEvidenceReportById(params['id']).subscribe((response: any) => {
 
           // adjust comment controls amount
           this.addIdentifier(response.identifier.length);
           this.adduseContext(response.useContext.length)
 
           this.evidenceReportForm.patchValue(response);
-          
-          
+
+
         });
       }
 
@@ -216,11 +216,11 @@ export class EvidencereportFormComponent implements OnInit {
   onDateChange(event: any) {
 
     console.log(event.target.value);
-    
+
   }
 
   onSubmit() {
-    if (this.evidenceReportForm.valid) {      
+    if (this.evidenceReportForm.valid) {
       const updatedObject: any = {
         id: this.evidenceReportForm.value.id,
         status: this.evidenceReportForm.value.status,
@@ -234,7 +234,7 @@ export class EvidencereportFormComponent implements OnInit {
       this.evidenceService.putEvidenceReport(updatedObject).subscribe(response => {
         console.log(response);
         this.router.navigate(["/evidenceoverview"]);
-        
+
       });
     }
   }
