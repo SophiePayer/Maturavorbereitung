@@ -19,31 +19,28 @@ export class ObservationFormComponent implements OnInit {
 
   emptyObservation: any = {
       id: null,
+      identifier: [],
       canonical: '',
-      instantiatesReference: null,
-      observationDefinition: null,
+      instantiatesReference: {},
+      observationDefinition: {},
       basedon: [],
       triggeredby: [],
   };
 
   emptyIdentifier: any = {
-    id: 0, 
     use: "usual",
     value: "",
     system: "",
-    type: "",
     display: "",
     period: []
   };
 
   emptyPeriod: any = {
-    id:0,
     start: "",
     end: ""
   };
 
   emptyBasedOn: any = {
-    id: 0, 
     reference: "",
     type: "",
     display: ""
@@ -82,7 +79,6 @@ export class ObservationFormComponent implements OnInit {
     id: new FormControl<number | null>(null),
     canonical: new FormControl<string>("ok"),
     instantiatesReference: this.createInstantiatesReferenceFormGroup(),
-    observationDefinition: this.createObservationDefinitionFormGroup(),
     identifier: new FormArray<FormGroup>([]),
     basedon: new FormArray<FormGroup>([]),
     triggeredby: new FormArray<FormGroup>([]),
@@ -91,13 +87,11 @@ export class ObservationFormComponent implements OnInit {
   createObservationDefinitionFormGroup():FormGroup {
     return new FormGroup({
       id: this.formBuilder.control('')
-
     });
   }
 
   createInstantiatesReferenceFormGroup():FormGroup {
     return new FormGroup({
-      id: this.formBuilder.control(''),
       reference: this.formBuilder.control(''),
       type: this.formBuilder.control(''),
       display: this.formBuilder.control('')
@@ -108,7 +102,7 @@ export class ObservationFormComponent implements OnInit {
   public addTriggeredBy(amount: number = 1): void{
 
     for (let i = 0; i < amount; i++) {
-      (this.observationForm.controls["triggerdby"] as any).push(this.triggeredbyFormGroup());
+      (this.observationForm.controls["triggeredby"] as any).push(this.triggeredbyFormGroup());
     }
   }
 
@@ -147,7 +141,7 @@ export class ObservationFormComponent implements OnInit {
   }
 
   getBasedOnControls(): any {
-    return (this.observationForm.controls["address"] as any).controls;
+    return (this.observationForm.controls["basedon"] as any).controls;
   }
 
 
@@ -159,13 +153,13 @@ export class ObservationFormComponent implements OnInit {
       }else{
         this.observationService.getObservationById(params['id']).subscribe((response: any) => {          
 
+          console.log(response);
           // adjust comment controls amount
-          this.addBasedOn(response.address.length);
+          this.addBasedOn(response.basedon.length);
           this.addIdentifier(response.identifier.length);
-          this.addTriggeredBy(response.telecom.length);
+          this.addTriggeredBy(response.triggeredby.length);
 
           this.observationForm.patchValue(response);
-          console.log(response);
           
           console.log("ObservationForm",this.observationForm.value);
           

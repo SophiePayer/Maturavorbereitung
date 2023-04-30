@@ -1,5 +1,23 @@
 <form [formGroup]="observationForm">
     <h3>Observation</h3>
+    <div>
+      <label >Canonical:</label>
+      <textarea formControlName="canonical" ></textarea>
+    </div>
+    <ng-container formGroupName="instantiatesReference">
+      <div>
+        <label >Reference:</label>
+        <input type="reference" formControlName="reference" />
+      </div>
+      <div>
+        <label >type:</label>
+        <input type="type" formControlName="type" />
+      </div>
+      <div>
+        <label >display:</label>
+        <input type="display" formControlName="display" />
+      </div>
+    </ng-container>
       Identfifiers: <button (click)="addIdentifier()">+</button>
         <div *ngFor="let identifier of getIdentifierControls(); index as i" [formGroup]="identifier" >
           <div>
@@ -56,10 +74,10 @@
   
         TriggeredBy: <button (click)="addTriggeredBy()">+</button>
         <div *ngFor="let TriggeredBy of getTriggeredByControls(); index as a" [formGroup]="TriggeredBy" >
-          <div>
+         <!--  <div>
             <label >Observation:</label>
             <input type="Observation" formControlName="Observation" />
-          </div>
+          </div> -->
         </div>
   
       <button (click)="onSubmit()">Submit</button>

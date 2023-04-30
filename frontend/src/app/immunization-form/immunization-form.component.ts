@@ -19,16 +19,10 @@ export class ImmunizationFormComponent implements OnInit {
     ) { }
 
     emptyPatient: any = {
-      id: null,
-      active: false,
-      birthdate: '',
-      gender: 'male',
-      deceasedBoolean: false,
-      deceasedDateTime:null,
-      identifier: [],
-      address: [],
-      telecom: [],
-      name: []
+     reference: '',
+      identifier: {},
+      type: '',
+      display: '',
     };
     
   emptyImmunization: any = {
@@ -40,31 +34,47 @@ export class ImmunizationFormComponent implements OnInit {
     occurrenceString: '',
   };
 
+  emptyPeriod: any = {
+    id:0,
+    start: "",
+    end: ""
+  }
+
+  private patientFormGroup = () => new FormGroup({
+    reference: new FormControl<string>(""),
+    type: new FormControl<string>(""),
+    display: new FormControl<string>(""),
+    identifier: this.identifierFormGroup(),
+  });
+
+  private identifierFormGroup = () => new FormGroup({
+    use: new FormControl<string>(""),
+    value: new FormControl<string>(""),
+    system: new FormControl<string>(""),
+    display: new FormControl<string>(""),
+    period: this.periodFormGroup(),
+  });
+
+  private periodFormGroup = () => new FormGroup({
+    start: new FormControl<Date>(this.emptyPeriod.start),
+    end: new FormControl<Date>(this.emptyPeriod.end)
+  })
+
   public ImmunizationForm: FormGroup = new FormGroup({
     id: new FormControl<string>(this.emptyImmunization.id),
     iotnumber: new FormControl<string>(this.emptyImmunization.iotnumber),
     expirationdate: new FormControl<Date>(this.emptyImmunization.expirationdate),
-    patient: this.createPatientFormGroup(),
+    patient: this.patientFormGroup(),
     occurrenceDateTime: new FormControl<Date>(this.emptyImmunization.occurrenceDateTime),
     occurrenceString: new FormControl<string>(this.emptyImmunization.occurrenceString),
 
   });
 
-  createPatientFormGroup(): FormGroup {
-    return new FormGroup({
-        id: new FormControl<number | null>(null),
-        active: new FormControl<boolean>(this.emptyPatient.active),
-        birthdate: new FormControl<Date>(this.emptyPatient.birthdate),
-        gender: new FormControl<string>(this.emptyPatient.gender),
-        deceasedBoolean: new FormControl<boolean>(this.emptyPatient.deceasedBoolean),
-        identifier: new FormArray<FormGroup>([]),
-        address: new FormArray<FormGroup>([]),
-        telecom: new FormArray<FormGroup>([]),
-        name: new FormArray<FormGroup>([])
-      });
-    
+
+  getPatientControls(): any {
+    return (this.ImmunizationForm.controls["patient"] as any).controls;
   }
-  
+
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {

@@ -1,11 +1,6 @@
 <form [formGroup]="ImmunizationForm">
         <h3>Immunization</h3>
         <div>
-        <label>ID:</label>
-            <input type="text" id="id" formControlName="id">
-        </div>
-        
-        <div>
             <label for="iotnumber">Iotnumber:</label>
             <input type="text" id="iotnumber" formControlName="iotnumber">
         </div>
@@ -20,13 +15,54 @@
             
             <label>Patient:</label>
             <div>
-                <label>Active:</label>
-                <select formControlName="active">
-                    <option value="true">True</option>
-                    <option value="false">False</option>
+                <label for="reference">Reference:</label>
+                <input type="text" id="reference" formControlName="reference">
+            </div>
+            
+            <div>
+                <label for="type">Type:</label>
+                <input type="text" id="type" formControlName="type">
+            </div>
+            <div>
+                <label for="display">Display:</label>
+                <input type="text" id="display" formControlName="display">
+            </div>
+
+            <ng-container formGroupName="identifier">
+                Identfifier:
+                <div>
+                <label >Use:</label>
+                <select formControlName="use">
+                    <option value="usual">Usual</option>
+                    <option value="official">Official</option>
+                    <option value="temp">Temp</option>
+                    <option value="secondary">Secondary</option>
+                    <option value="old">Old</option>
                 </select>
-            </div> 
-           
+                </div>
+                <div>
+                <label >System:</label>
+                <textarea formControlName="system" ></textarea>
+                </div>
+                <div>
+                <label >Value:</label>
+                <textarea formControlName="value" ></textarea>
+                </div>
+                <div>
+                <label >Display:</label>
+                <textarea formControlName="display" ></textarea>
+                </div>
+                <ng-container formGroupName="period">
+                    <div>
+                        <label>Start:</label>
+                        <input type="datetime-local" placeholder="start" formControlName="start">
+                    </div>
+                    <div>
+                        <label>End:</label>
+                        <input type="datetime-local" placeholder="end" formControlName="end">
+                    </div>
+                </ng-container>
+            </ng-container>
         </ng-container>
        
 
